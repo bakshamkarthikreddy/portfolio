@@ -73,21 +73,13 @@ nav div,nav a{pointer-events:all;color:var(--white);text-decoration:none;font-si
 @keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
 .m-body{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:150px;height:120px;background:linear-gradient(170deg,#1a1a2e,#0d0d1a);border-radius:70px 70px 0 0;box-shadow:0 -4px 22px rgba(0,212,200,.17)}
 .m-neck{position:absolute;bottom:112px;left:50%;transform:translateX(-50%);width:32px;height:38px;background:#1a1a2e}
-.m-head{position:absolute;bottom:130px;left:50%;transform:translateX(-50%);width:140px;height:154px;background:linear-gradient(155deg,#cb7d42,#a86330);border-radius:50% 50% 46% 46%;box-shadow:inset -8px -14px 22px rgba(0,0,0,.28),inset 4px 4px 12px rgba(255,200,150,.18)}
-.m-ear{position:absolute;top:68px;width:18px;height:24px;background:#be7035;border-radius:50%}
-.m-ear.l{left:-5px}.m-ear.r{right:-5px}
-.m-cap-top{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:148px;height:74px;background:linear-gradient(148deg,#1a3a6e,#0d2a5e);border-radius:50% 50% 0 0;box-shadow:inset 0 -5px 12px rgba(0,0,0,.3);z-index:3}
-.m-cap-brim{position:absolute;top:50px;left:50%;transform:translateX(-50%);width:174px;height:18px;background:linear-gradient(135deg,#1e4080,#152e60);border-radius:3px 3px 7px 7px;box-shadow:0 4px 8px rgba(0,0,0,.32);z-index:3}
-.m-cap-btn{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:10px;height:10px;background:#2a4a8a;border-radius:50%;border:2px solid #1a3a6e;z-index:4}
-.m-brow{position:absolute;top:52px;height:7px;width:32px;background:#4a2810;border-radius:4px}
-.m-brow.l{left:17px;transform:rotate(-5deg)}.m-brow.r{right:17px;transform:rotate(5deg)}
-.m-eye{position:absolute;top:64px;width:34px;height:28px;background:#fff;border-radius:50%;overflow:hidden;box-shadow:inset 0 2px 5px rgba(0,0,0,.2)}
+.m-head{position:absolute;bottom:130px;left:50%;transform:translateX(-50%);width:140px;height:154px;background:linear-gradient(155deg,#d28d5d,#a86330);border-radius:48% 48% 42% 42%;box-shadow:inset -8px -14px 22px rgba(0,0,0,.28),inset 4px 4px 12px rgba(255,200,150,.18)}
+.m-eye{position:absolute;top:66px;width:36px;height:30px;background:#fff;border-radius:50%;overflow:hidden;box-shadow:inset 0 3px 6px rgba(0,0,0,.25)}
 .m-eye.l{left:16px}.m-eye.r{right:16px}
-.m-iris{position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:18px;height:18px;background:radial-gradient(circle at 35% 35%,#5a7090,#1a3555);border-radius:50%}
-.m-pupil{position:absolute;top:3px;left:3px;width:9px;height:9px;background:#000;border-radius:50%}
-.m-lid{position:absolute;inset:0;background:#cb7d42;border-radius:50%;transform:scaleY(0);transform-origin:top;animation:blink 4s ease-in-out infinite}
-.m-eye.r .m-lid{animation-delay:.05s}
-@keyframes blink{0%,84%,100%{transform:scaleY(0)}89%,94%{transform:scaleY(1)}}
+.m-iris{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;background:#1a1a1a;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.m-pupil{width:8px;height:8px;background:#fff;border-radius:50%;opacity:.4;margin-top:-6px;margin-left:-6px}
+.m-lid{position:absolute;inset:0;background:#d28d5d;border-radius:50%;transform:scaleY(0);transform-origin:top;animation:blink 4s ease-in-out infinite;z-index:2}
+@keyframes blink{0%,84%,100%{transform:scaleY(0)}89%,94%{transform:scaleY(1.05)}}
 .m-nose{position:absolute;top:96px;left:50%;transform:translateX(-50%);width:18px;height:12px;border:3px solid rgba(90,44,8,.42);border-top:none;border-radius:0 0 11px 11px}
 .m-mouth{position:absolute;bottom:17px;left:50%;transform:translateX(-50%);width:42px;height:12px;border-bottom:4px solid #7a3810;border-radius:0 0 24px 24px;overflow:hidden}
 .m-teeth{position:absolute;bottom:0;left:2px;right:2px;height:8px;background:#f5f5f5;border-radius:3px}
@@ -237,17 +229,28 @@ canvas{width:100%;height:100%}
     <div class="mem">
       <div class="m-body"></div>
       <div class="m-neck"></div>
-      <div class="m-head">
-        <div class="m-cap-top"></div>
-        <div class="m-cap-brim"></div>
-        <div class="m-cap-btn"></div>
-        <div class="m-ear l"></div><div class="m-ear r"></div>
-        <div class="m-brow l"></div><div class="m-brow r"></div>
-        <div class="m-eye l"><div class="m-iris"><div class="m-pupil"></div></div><div class="m-lid"></div></div>
-        <div class="m-eye r"><div class="m-iris"><div class="m-pupil"></div></div><div class="m-lid"></div></div>
-        <div class="m-nose"></div>
-        <div class="m-mouth"><div class="m-teeth"></div></div>
-      </div>
+      <div class="m-head" style="background:linear-gradient(155deg,#d28d5d,#a86330)">
+          <!-- Hair -->
+          <div style="position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:105%;height:45px;background:#1a1a1a;border-radius:60px 60px 10px 10px;z-index:1;box-shadow:inset 0 -10px 15px rgba(0,0,0,.3)"></div>
+          <div style="position:absolute;top:10px;left:-5px;width:15px;height:25px;background:#1a1a1a;border-radius:50%;z-index:1"></div>
+          <div style="position:absolute;top:10px;right:-5px;width:15px;height:25px;background:#1a1a1a;border-radius:50%;z-index:1"></div>
+          
+          <div class="m-brow l"></div><div class="m-brow r"></div>
+          <div class="m-eye l">
+            <div class="m-iris trk"><div class="m-pupil"></div></div>
+            <div class="m-lid"></div>
+          </div>
+          <div class="m-eye r">
+            <div class="m-iris trk"><div class="m-pupil"></div></div>
+            <div class="m-lid"></div>
+          </div>
+          
+          <!-- Ears -->
+          <div style="position:absolute;top:70px;left:-8px;width:18px;height:24px;background:#be7035;border-radius:50%;z-index:-1;box-shadow:inset 3px 0 5px rgba(0,0,0,.1)"></div>
+          <div style="position:absolute;top:70px;right:-8px;width:18px;height:24px;background:#be7035;border-radius:50%;z-index:-1;box-shadow:inset -3px 0 5px rgba(0,0,0,.1)"></div>
+          
+          <div class="m-nose"></div><div class="m-mouth" style="bottom:22px"><div class="m-teeth"></div></div>
+        </div>
     </div>
   </div>
   <div class="hr-rt ac">
@@ -584,7 +587,17 @@ window.addEventListener('load', () => {
 // cursor
 const dot=document.getElementById('dot'),ring=document.getElementById('ring');
 let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';
+  document.querySelectorAll('.trk').forEach(ir=>{
+    const r=ir.parentElement.getBoundingClientRect();
+    const cx=r.left+r.width/2,cy=r.top+r.height/2;
+    const dx=mx-cx,dy=my-cy,dist=Math.sqrt(dx*dx+dy*dy);
+    const m=4; // max offset
+    const ox=(dx/dist)*Math.min(dist/10,m),oy=(dy/dist)*Math.min(dist/10,m);
+    ir.style.transform=`translate(calc(-50% + ${ox}px), calc(-50% + ${oy}px))`;
+  });
+});
 (function ar(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ar)})();
 // stars
 [0,1,2,3,4,5,6,7].forEach(i=>{
