@@ -1,0 +1,158 @@
+import { useEffect, useState } from 'react';
+import Lenis from 'lenis';
+import { motion, useScroll, useSpring, AnimatePresence } from 'motion/react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import About from './components/About';
+import Education from './components/Education';
+import Certifications from './components/Certifications';
+import Projects from './components/Projects';
+import Contact from './components/Contact';
+import Background from './components/Background';
+import BackToTop from './components/BackToTop';
+import CustomCursor from './components/CustomCursor';
+import Magnetic from './components/Magnetic';
+import Preloader from './components/Preloader';
+
+export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  useEffect(() => {
+    // Artificial delay for preloader to show its personality
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2800); // Matches the preloader's 20ms*100 + extra 500ms
+
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    // Global smooth scroll for anchor links
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a');
+      if (anchor && anchor.hash && anchor.hash.startsWith('#')) {
+        e.preventDefault();
+        
+        if (anchor.hash === '#') {
+          lenis.scrollTo(0);
+          return;
+        }
+
+        const targetElement = document.querySelector(anchor.hash) as HTMLElement;
+        if (targetElement) {
+          lenis.scrollTo(targetElement);
+        }
+      }
+    };
+
+    document.addEventListener('click', handleAnchorClick);
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener('click', handleAnchorClick);
+      lenis.destroy();
+    };
+  }, []);
+
+  return (
+    <div className="relative min-h-screen bg-clay-bg overflow-x-hidden cursor-none selection:bg-clay-blue selection:text-blue-900">
+      <Preloader />
+      
+      <AnimatePresence>
+        {!isLoading && (
+          <>
+            <CustomCursor />
+            <Navbar />
+            
+            <motion.div
+              initial={{ opacity: 0, y: 100, filter: 'blur(20px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
+            >
+              <motion.div
+                className="fixed top-0 left-0 right-0 h-1.5 bg-clay-blue z-[100] origin-left"
+                style={{ scaleX }}
+              />
+              <Background />
+              
+              <main>
+                <div id="hero">
+                  <Hero />
+                </div>
+                
+                <div id="about">
+                  <About />
+                </div>
+                
+                <div id="education">
+                  <Education />
+                </div>
+                
+                <div id="certifications">
+                  <Certifications />
+                </div>
+                
+                <div id="works">
+                  <Projects />
+                </div>
+                
+                <div id="contact">
+                  <Contact />
+                </div>
+              </main>
+
+              <footer className="py-12 px-6 md:px-20 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div className="text-xs font-bold uppercase tracking-widest text-slate-400">
+                  © 2026 Baksham Karthik Reddy
+                </div>
+                <div className="text-xs font-bold uppercase tracking-widest text-slate-400">
+                  Built with Clay & React
+                </div>
+                <div className="flex gap-6">
+                  {[
+                    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/baksham' },
+                    { name: 'GitHub', href: 'https://github.com/bakshamkarthikreddy' },
+                    { name: 'Email', href: 'mailto:bakshamkarthikreddy@gmail.com' }
+                  ].map((item) => (
+                    <Magnetic key={item.name}>
+                      <a 
+                        href={item.href} 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-clay-blue transition-colors"
+                      >
+                        {item.name}
+                      </a>
+                    </Magnetic>
+                  ))}
+                </div>
+              </footer>
+            </motion.div>
+            <BackToTop />
+          </>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
